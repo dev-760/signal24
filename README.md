@@ -5,7 +5,7 @@
 <h1 align="center">Signal24</h1>
 
 <p align="center">
-  <strong>Real-time live news stream aggregator with live chat & war predictions</strong>
+  <strong>Real-time live news stream aggregator with live chat, user accounts, and The Conflict League</strong>
 </p>
 
 <p align="center">
@@ -23,7 +23,11 @@
 
 During major breaking news events, I found myself constantly switching between dozens of browser tabs — CNN, BBC, Al Jazeera, local channels — trying to piece together what was actually happening from different perspectives. It was chaotic and inefficient.
 
-**Signal24** solves this by putting every live news stream on a single page in a clean, no-nonsense interface. No sign-ups, no ads, no clutter — just live video feeds from global news networks, a breaking news ticker, and a live chat room so you can discuss what's happening with other viewers in real time.
+**Signal24** solves this by putting every live news stream on a single page in a clean, no-nonsense interface. No sign-ups for viewing, no ads, no clutter — just live video feeds from global news networks, a breaking news ticker, and a complete suite of interactive tools:
+
+- **Live Chat:** Real-time synchronized chat rooms alongside the feeds.
+- **The Conflict League:** A fully-fledged betting ecosystem where users top up accounts and predict global escalation events.
+- **Admin Command Center:** A hidden control panel for managing users, resolving bets, and tracking live global traffic metrics.
 
 The name "Signal24" means **signal, 24 hours a day** — because the news never stops.
 
@@ -33,16 +37,16 @@ The name "Signal24" means **signal, 24 hours a day** — because the news never 
 
 | Feature | Description |
 |---|---|
-| **Multi-stream grid** | Watch 12+ live news channels simultaneously in a 1/2/3 column grid |
-| **Scroll-snap card view** | Single-column mode with swipeable card navigation and dot indicators |
+| **Multi-stream grid** | Watch 12+ live news channels simultaneously in a 1/2/3 column layout |
 | **Breaking news ticker** | Auto-scrolling headline bar with pause-on-hover |
-| **Live chat** | Real-time chat powered by WebSockets — talk with other viewers |
-| **The Conflict League** | 13 war prediction bets across 5 categories — escalation, economic, international, diplomacy, long-term outcomes |
-| **User accounts** | Login / Sign up with username and password — votes and chat are tied to your account |
-| **Mute/Unmute toggle** | One-click audio control — only one channel plays audio at a time |
-| **Fullscreen mode** | Expand any channel to fullscreen with a single click |
-| **Responsive design** | Works on desktop, tablet, and mobile |
-| **Dark theme** | Premium dark UI with glassmorphism effects |
+| **Real-time Live Chat** | WebSockets-powered global chat room for active discussions |
+| **Secure Authentication** | Built-in login/signup flows using **bcrypt** hashed passwords |
+| **Database Persistence** | Fully backed by **Supabase (PostgreSQL)** — zero data loss |
+| **The Conflict League** | 13 multi-choice geopolitical prediction markets across 5 categories |
+| **Live Economy** | Users start with 100 coins, bet 10 at a time, and get auto-payouts |
+| **Admin Panel** | Hidden dashboard to add/remove users, top up balances, and resolve bets |
+| **Performance Analytics** | Pre-configured with **Vercel Analytics & Speed Insights** for SEO |
+| **Modern UX** | Dark theme, glassmorphism, compact inline forms, accordion menus |
 
 ---
 
@@ -50,241 +54,114 @@ The name "Signal24" means **signal, 24 hours a day** — because the news never 
 
 | Layer | Technology |
 |---|---|
-| **Frontend** | [Next.js 16](https://nextjs.org/) (React 19, App Router, Turbopack) |
-| **Video** | [hls.js](https://github.com/video-dev/hls.js/) for HLS streams, YouTube iframes |
-| **Chat Server** | [Express](https://expressjs.com/) + [Socket.IO](https://socket.io/) |
-| **Styling** | Vanilla CSS with custom design tokens |
-| **Fonts** | Plus Jakarta Sans + JetBrains Mono (Google Fonts) |
-| **Deployment** | Vercel (frontend) + Render (chat server) |
+| **Frontend UI** | [Next.js 16](https://nextjs.org/) (React 19, App Router) |
+| **WebSockets** | [Socket.IO](https://socket.io/) (Client and Server) |
+| **Database** | [Supabase](https://supabase.com/) & PostgreSQL |
+| **Backend API** | [Node.js](https://nodejs.org/) & [Express](https://expressjs.com/) |
+| **Security** | `bcrypt` hashing middleware |
+| **Video Delivery** | [hls.js](https://github.com/video-dev/hls.js/) + YouTube iframes |
+| **Analytics** | `@vercel/analytics` + `@vercel/speed-insights` |
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Getting Started Locally
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) 18+ installed
-- npm or yarn
+- Node.js 18+ installed
+- A free account on [Supabase](https://supabase.com/)
 
-### Installation
+### 1. Installation
 
 ```bash
-# Clone the repository
 git clone https://github.com/dev-760/signal24.git
 cd signal24
-
-# Install dependencies
 npm install
-
-# Set up environment variables
-cp .env.example .env.local
-# Edit .env.local with your values (see below)
 ```
 
-### Environment Variables
+### 2. Database Setup
+1. Create a new project in Supabase.
+2. Go to the **SQL Editor** in your Supabase dashboard.
+3. Open `supabase-schema.sql` from this project, paste it into the SQL editor, and click **Run**.
+4. Retrieve your **Project URL** and **anon / public key**.
 
-| Variable | Required | Description |
-|---|---|---|
-| `NEXT_PUBLIC_CHAT_URL` | ✅ | Chat server URL. Use `http://localhost:3001` for local dev |
-| `GNEWS_API_KEY` | ❌ | [GNews API](https://gnews.io/) key for live headlines |
-| `CURRENTS_API_KEY` | ❌ | [Currents API](https://currentsapi.services/) key (fallback) |
+### 3. Environment Config
+The project comes with two configuration templates (`.env.vercel` and `.env.render`). Run this command locally for testing:
+```bash
+cp .env.render .env.local
+```
+Edit `.env.local` to include your Supabase keys from Step 2.
 
-> **Note:** The ticker works without API keys — it falls back to built-in headlines.
-
-### Running Locally
+### 4. Running the Dev Servers
 
 ```bash
-# Terminal 1 — Start the Next.js frontend
-npm run dev
-
-# Terminal 2 — Start the chat server
+# Terminal 1 — Start the local Express & Socket backend
 npm run chat
+
+# Terminal 2 — Start the Next.js frontend UI
+npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## 🌐 Deployment
+## 🌐 Production Deployment Guide
 
-Signal24 has two parts that need to be deployed separately:
+Signal24 employs a modern split-architecture microservice pattern. It requires deploying the Backend and Frontend to separate free-tier providers.
 
-| Service | Platform | What it runs |
-|---|---|---|
-| **Frontend** (Next.js) | [Vercel](https://vercel.com) | The website UI |
-| **Chat Server** (Express + Socket.IO) | [Render](https://render.com) | WebSocket chat backend |
-
-### Step 1: Deploy the Chat Server on Render
-
-1. Go to [render.com](https://render.com) and sign up / log in
-
-2. Click **New** → **Web Service**
-
-3. Connect your GitHub repo or use **Public Git Repository**:
+### Phase 1: Deploy Backend (Render)
+1. Go to [Render](https://render.com) > **New Web Service** > **Connect GitHub Repo**.
+2. Configure as a **Node** environment.
+3. Set the **Build Command**:
+   ```bash
+   npm install express socket.io @supabase/supabase-js bcrypt dotenv
    ```
-   https://github.com/dev-760/signal24.git
+4. Set the **Start Command**:
+   ```bash
+   node server.js
    ```
+5. Add the variables from `.env.render` into the Render **Environment Variables** UI.
+6. Click **Deploy**. *Copy the generated URL (e.g. `https://signal24-api.onrender.com`)*.
 
-4. Configure the service:
-   | Setting | Value |
-   |---|---|
-   | **Name** | `signal24-chat` |
-   | **Runtime** | Node |
-   | **Build Command** | `npm install express socket.io` |
-   | **Start Command** | `node chat-server.js` |
-   | **Plan** | Free |
+### Phase 2: Deploy Frontend (Vercel)
+1. Go to [Vercel](https://vercel.com) > **Add New Project** > **Connect GitHub Repo**.
+2. Vercel automatically detects Next.js configurations.
+3. Before clicking deploy, expand the **Environment Variables** menu and paste exactly the ones outlined in the `.env.vercel` file.
+   - For `NEXT_PUBLIC_CHAT_URL`, paste the Render URL you copied in Phase 1.
+4. Click **Deploy**.
 
-5. Add environment variables:
-   | Key | Value |
-   |---|---|
-   | `ALLOWED_ORIGINS` | `https://your-app.vercel.app` (add your Vercel URL after deploying) |
+> **Important Finalizer**: Take the URL Vercel just gave you (e.g., `https://signal24.vercel.app`) and place it safely in your Render dashboard under the `ALLOWED_ORIGINS` variable to connect the CORS handshake. Re-deploy Render.
 
-6. Click **Deploy Web Service**
+---
 
-7. Once deployed, copy the service URL (e.g. `https://signal24-chat.onrender.com`)
+## 👑 Accessing the Admin Panel
 
-> **Tip:** The free tier on Render spins down after 15 minutes of inactivity. The first request may take ~30 seconds to wake up.
+The Admin Panel routes and configurations are hidden securely behind the UI.
 
-### Step 2: Deploy the Frontend on Vercel
-
-1. Go to [vercel.com](https://vercel.com) and sign up / log in
-
-2. Click **Add New** → **Project**
-
-3. Import your GitHub repository
-
-4. Vercel auto-detects Next.js — no build settings needed
-
-5. Add environment variables:
-   | Key | Value |
-   |---|---|
-   | `NEXT_PUBLIC_CHAT_URL` | `https://signal24-chat.onrender.com` (your Render URL from Step 1) |
-   | `GNEWS_API_KEY` | Your GNews API key (optional) |
-   | `CURRENTS_API_KEY` | Your Currents API key (optional) |
-
-6. Click **Deploy**
-
-### Step 3: Connect Them Together
-
-After both services are deployed:
-
-1. **Copy your Vercel URL** (e.g. `https://signal24.vercel.app`)
-
-2. **Go to Render Dashboard** → your `signal24-chat` service → **Environment**
-
-3. **Update `ALLOWED_ORIGINS`** to your Vercel URL:
-   ```
-   https://signal24.vercel.app
-   ```
-   > For multiple origins, separate with commas: `https://signal24.vercel.app,https://custom-domain.com`
-
-4. **Redeploy** the Render service for the change to take effect
-
-5. ✅ **Done!** Your live chat should now work on your deployed site.
-
-### Architecture Diagram
-
-```
-┌─────────────────────────────────────────────────┐
-│                   USERS                         │
-│              (Web Browsers)                     │
-└─────────────────┬───────────────────────────────┘
-                  │
-        ┌─────────┴──────────┐
-        │                    │
-        ▼                    ▼
-┌───────────────┐   ┌────────────────┐
-│   Vercel      │   │   Render       │
-│   (Frontend)  │   │ (Chat Server)  │
-│               │   │                │
-│  Next.js App  │◄──│  Express +     │
-│  + API Routes │   │  Socket.IO     │
-│               │   │                │
-│  Port: 443    │   │  Port: 3001    │
-└───────────────┘   └────────────────┘
-        │
-        ▼
-  HLS Video Streams
-  (External CDNs)
-```
+1. Once deployed, open the website and locate the pulsing red **"LIVE"** badge at the top right of the navigation bar.
+2. Click directly on the word **LIVE**.
+3. You will be prompted for an Admin Key. Enter:
+   - `signal24admin`
+4. From here you can natively edit databases, calculate payouts directly to active users, manage websocket traffic, and view Vercel analytics triggers.
 
 ---
 
 ## 📁 Project Structure
 
-```
+```bash
 signal24/
 ├── app/
-│   ├── api/headlines/       # News headlines API route
-│   ├── components/
-│   │   ├── ChannelCard.js   # Individual channel card
-│   │   ├── ExpandedView.js  # Fullscreen modal
-│   │   ├── Header.js        # Sticky header with clock
-│   │   ├── LiveChat.js      # Chat sidebar + war betting
-│   │   ├── NewsTicker.js    # Breaking news ticker
-│   │   └── VideoPlayer.js   # HLS/iframe video player
-│   ├── data/channels.js     # Channel list & headlines
-│   ├── globals.css          # Design system & styles
-│   ├── layout.js            # Root layout + fonts
-│   └── page.js              # Main page
-├── public/
-│   └── Logo.svg             # App logo
-├── chat-server.js           # WebSocket chat server
-├── render.yaml              # Render deployment config
-├── .env.example             # Environment template
-├── next.config.mjs          # Next.js configuration
-└── package.json
+│   ├── admin/               # Secure Control Panel Routes
+│   ├── components/          # React layout elements
+│   ├── globals.css          # Vanilla UI tokens and layout grids
+│   └── page.js              # Core UI injection layer
+├── server.js                # Master Websocket & API Server
+├── supabase-schema.sql      # Supabase PG Initialization query
+├── .env.render              # Backend Environment blueprint
+├── .env.vercel              # Frontend Environment blueprint
+└── package.json             # Build definitions
 ```
-
----
-
-## 📺 Channels
-
-| Channel | Region | Type |
-|---|---|---|
-| ABC News Digital | USA | HLS |
-| CNN | USA | HLS |
-| LiveNOW from FOX | USA | HLS |
-| BBC World News | UK | HLS |
-| TRT World | Turkey | HLS |
-| Al Jazeera Mubasher | Qatar | HLS |
-| Sky News Arabia | UAE | HLS |
-| RT Arabic | Russia | HLS |
-| i24 News | Israel | HLS |
-| IRIB News | Iran | HLS |
-| Press TV | Iran | HLS |
-| Al Arabiya | Saudi Arabia | HLS |
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/new-channel`
-3. Commit your changes: `git commit -m 'Add new channel'`
-4. Push: `git push origin feature/new-channel`
-5. Open a Pull Request
-
-### Adding a New Channel
-
-Add an entry to `app/data/channels.js`:
-
-```js
-{
-    id: "channel-id",
-    name: "Channel Name",
-    region: "Country",
-    url: "https://stream-url/playlist.m3u8",
-    type: "hls",
-    logo: "https://logo-url.png",
-}
-```
-
----
-
-## 📄 License
-
-This project is open source. All live streams are property of their respective broadcasters.
 
 ---
 
