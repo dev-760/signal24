@@ -5,6 +5,7 @@ import { tickerHeadlines as fallbackHeadlines } from "../data/channels";
 
 export default function NewsTicker() {
     const [headlines, setHeadlines] = useState(fallbackHeadlines);
+    const [isPaused, setIsPaused] = useState(false);
 
     useEffect(() => {
         async function fetchHeadlines() {
@@ -22,7 +23,6 @@ export default function NewsTicker() {
         }
 
         fetchHeadlines();
-        // Refresh every 5 minutes
         const interval = setInterval(fetchHeadlines, 5 * 60 * 1000);
         return () => clearInterval(interval);
     }, []);
@@ -30,15 +30,26 @@ export default function NewsTicker() {
     const doubledHeadlines = [...headlines, ...headlines];
 
     return (
-        <div className="ticker-bar">
-            <div className="ticker-content">
+        <div
+            className="ticker-bar"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+        >
+            <div className="ticker-flash">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                </svg>
+                BREAKING
+            </div>
+            <div className={`ticker-content ${isPaused ? "ticker-paused" : ""}`}>
                 {doubledHeadlines.map((headline, i) => (
-                    <span key={i}>
-                        {i % headlines.length === 0 && (
-                            <span className="ticker-label">⚡ BREAKING</span>
-                        )}
+                    <span key={i} className="ticker-item">
                         <span className="ticker-text">{headline}</span>
-                        <span className="ticker-separator">●</span>
+                        <span className="ticker-separator">
+                            <svg width="6" height="6" viewBox="0 0 6 6" fill="currentColor">
+                                <circle cx="3" cy="3" r="3" />
+                            </svg>
+                        </span>
                     </span>
                 ))}
             </div>
