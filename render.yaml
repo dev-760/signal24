@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: signal24-chat
+    runtime: node
+    buildCommand: npm install socket.io socket.io-client express
+    startCommand: node chat-server.js
+    envVars:
+      - key: ALLOWED_ORIGINS
+        sync: false
