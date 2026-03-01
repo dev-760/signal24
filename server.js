@@ -2,6 +2,7 @@ require("dotenv").config({ path: ".env.local" });
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const express = require("express");
+const cors = require("cors");
 const { createClient } = require("@supabase/supabase-js");
 const bcrypt = require("bcrypt");
 
@@ -22,6 +23,7 @@ const io = new Server(httpServer, {
     cors: { origin: allowedOrigins, methods: ["GET", "POST"] },
 });
 
+app.use(cors({ origin: allowedOrigins }));
 app.use(express.json());
 
 // ══════════════════════════════════════════

@@ -160,19 +160,33 @@ export default function LiveChat() {
                         <button className={`sidebar-tab ${activeTab === "bets" ? "sidebar-tab-active" : ""}`} onClick={() => setActiveTab("bets")}>Conflict League</button>
                     </div>
 
-                    {/* Auth - compact inline */}
+                    {/* Auth - Full Size */}
                     {!user ? (
-                        <div className="auth-compact">
-                            <form className="auth-row" onSubmit={handleAuth}>
-                                <input type="text" placeholder="Username" value={authUser} onChange={(e) => setAuthUser(e.target.value)} maxLength={20} className="auth-sm-input" />
-                                <input type="password" placeholder="Pass" value={authPass} onChange={(e) => setAuthPass(e.target.value)} maxLength={50} className="auth-sm-input" />
-                                <button type="submit" className="auth-sm-btn" disabled={authLoading || !connected}>
-                                    {authMode === "login" ? "→" : "+"}
+                        <div className="auth-full">
+                            <div className="auth-avatar-holder">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
+                            </div>
+
+                            <form className="auth-form-full" onSubmit={handleAuth}>
+                                <div className="auth-input-group">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
+                                    <input type="text" placeholder="Username" value={authUser} onChange={(e) => setAuthUser(e.target.value)} maxLength={20} className="auth-lg-input" />
+                                </div>
+                                <div className="auth-input-group">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
+                                    <input type="password" placeholder="Password" value={authPass} onChange={(e) => setAuthPass(e.target.value)} maxLength={50} className="auth-lg-input" />
+                                </div>
+
+                                {authError && <div className="auth-full-error">{authError}</div>}
+
+                                <button type="submit" className="auth-lg-btn" disabled={authLoading || !connected}>
+                                    {authMode === "login" ? "Log In" : "Sign Up"}
                                 </button>
                             </form>
-                            <div className="auth-sm-footer">
-                                {authError && <span className="auth-sm-error">{authError}</span>}
-                                <button className="auth-sm-toggle" onClick={() => { setAuthMode(authMode === "login" ? "signup" : "login"); setAuthError(""); }}>
+
+                            <div className="auth-full-footer">
+                                {authMode === "login" ? "Don't have an account?" : "Already have an account?"}
+                                <button className="auth-full-toggle" onClick={() => { setAuthMode(authMode === "login" ? "signup" : "login"); setAuthError(""); }}>
                                     {authMode === "login" ? "Sign up" : "Log in"}
                                 </button>
                             </div>

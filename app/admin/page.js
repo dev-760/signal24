@@ -115,7 +115,9 @@ export default function AdminPage() {
         return (
             <div className="admin-login-page">
                 <div className="admin-login-box">
-                    <div className="admin-login-icon">🔒</div>
+                    <div className="admin-login-icon">
+                        <img src="/Logo.svg" alt="Signal24 Logo" style={{ width: '56px', height: '56px', objectFit: 'contain' }} />
+                    </div>
                     <h1>Signal24 Admin</h1>
                     <p>Enter the admin key to continue</p>
                     <form onSubmit={handleLogin}>
