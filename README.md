@@ -5,7 +5,7 @@
 <h1 align="center">Signal24</h1>
 
 <p align="center">
-  <strong>Real-time live news stream aggregator with live chat</strong>
+  <strong>Real-time live news stream aggregator with live chat & war predictions</strong>
 </p>
 
 <p align="center">
@@ -37,6 +37,8 @@ The name "Signal24" means **signal, 24 hours a day** — because the news never 
 | **Scroll-snap card view** | Single-column mode with swipeable card navigation and dot indicators |
 | **Breaking news ticker** | Auto-scrolling headline bar with pause-on-hover |
 | **Live chat** | Real-time chat powered by WebSockets — talk with other viewers |
+| **The Conflict League** | 13 war prediction bets across 5 categories — escalation, economic, international, diplomacy, long-term outcomes |
+| **User accounts** | Login / Sign up with username and password — votes and chat are tied to your account |
 | **Mute/Unmute toggle** | One-click audio control — only one channel plays audio at a time |
 | **Fullscreen mode** | Expand any channel to fullscreen with a single click |
 | **Responsive design** | Works on desktop, tablet, and mobile |
@@ -218,7 +220,7 @@ signal24/
 │   │   ├── ChannelCard.js   # Individual channel card
 │   │   ├── ExpandedView.js  # Fullscreen modal
 │   │   ├── Header.js        # Sticky header with clock
-│   │   ├── LiveChat.js      # Chat sidebar
+│   │   ├── LiveChat.js      # Chat sidebar + war betting
 │   │   ├── NewsTicker.js    # Breaking news ticker
 │   │   └── VideoPlayer.js   # HLS/iframe video player
 │   ├── data/channels.js     # Channel list & headlines
