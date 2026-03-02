@@ -338,11 +338,11 @@ export default function LiveChat() {
                                 <h3 className="topup-title">Top Up Balance</h3>
                                 <p className="topup-desc">Scan the QR code below to add coins to your account</p>
                                 <div className="topup-qr">
-                                    <img src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://alchemy.com/pay/${user?.username || "signal24"}&bgcolor=0e0e1f&color=ffffff`} alt="Top Up QR" width={180} height={180} />
+                                    <img src="/qr.svg" alt="Top Up QR" width={180} height={180} />
                                 </div>
                                 <div className="topup-info">
-                                    <span className="topup-wallet">Alchemy Pay</span>
-                                    <span className="topup-address">{user?.username || "signal24"}</span>
+                                    <span className="topup-wallet">Tether (USDT) TRC20</span>
+                                    <span className="topup-address" style={{ fontSize: '0.65rem', wordBreak: 'break-all' }}>TMh3Fq6yZeB1xRgEByWJwD3Kx4r1pL8L2B</span>
                                 </div>
                                 <p className="topup-hint">Contact admin for manual top-up</p>
                             </div>
