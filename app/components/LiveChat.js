@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 
-const CHAT_URL = process.env.NEXT_PUBLIC_CHAT_URL || "http://localhost:3001";
+const CHAT_URL = process.env.NEXT_PUBLIC_CHAT_URL;
 
 function getUserColor(name) {
     const colors = ["#e63946", "#4895ef", "#2dc653", "#f9a826", "#a855f7", "#06b6d4", "#f472b6", "#84cc16"];

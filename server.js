@@ -7,23 +7,19 @@ const { createClient } = require("@supabase/supabase-js");
 const bcrypt = require("bcrypt");
 
 const PORT = process.env.PORT || 3001;
-const ADMIN_KEY = process.env.ADMIN_KEY || "signal24admin";
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://ymqsqtmnpjuqkwngfyzw.supabase.co";
-const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY || "sb_publishable_Hoa3LMFBpKmYIuvEGn6aLQ_51JJ3iV0";
+const ADMIN_KEY = process.env.ADMIN_KEY;
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY;
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 const app = express();
 const httpServer = createServer(app);
 
-const allowedOrigins = process.env.ALLOWED_ORIGINS
-    ? process.env.ALLOWED_ORIGINS.split(",").map((o) => o.trim().replace(/\/+$/, ""))
-    : ["http://localhost:3000", "http://127.0.0.1:3000"];
-
 const io = new Server(httpServer, {
-    cors: { origin: allowedOrigins, methods: ["GET", "POST"] },
+    cors: { origin: "*", methods: ["GET", "POST"] },
 });
 
-app.use(cors({ origin: allowedOrigins }));
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 // ══════════════════════════════════════════

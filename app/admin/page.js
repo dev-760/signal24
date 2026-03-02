@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 
-const CHAT_URL = process.env.NEXT_PUBLIC_CHAT_URL || "http://localhost:3001";
+const CHAT_URL = process.env.NEXT_PUBLIC_CHAT_URL;
 
 export default function AdminPage() {
     const [adminKey, setAdminKey] = useState("");
