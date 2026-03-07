@@ -6,7 +6,6 @@ import Header from "./components/Header";
 import NewsTicker from "./components/NewsTicker";
 import ChannelCard from "./components/ChannelCard";
 import ExpandedView from "./components/ExpandedView";
-import LiveChat from "./components/LiveChat";
 
 export default function Home() {
   const [mutedChannel, setMutedChannel] = useState(null);
@@ -164,8 +163,6 @@ export default function Home() {
             ))}
           </div>
         </div>
-
-        <LiveChat />
       </main>
 
       <footer className="footer">
